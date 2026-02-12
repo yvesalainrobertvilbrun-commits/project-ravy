@@ -1,52 +1,33 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(RavyDevControl());
-}
-
-class RavyDevControl extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'RAVY Dev Control',
-      theme: ThemeData.dark(),
-      home: Dashboard(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class Dashboard extends StatelessWidget {
+class WeaponsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('RAVY Dev Control')),
-      body: GridView.count(
-        crossAxisCount: 2,
+      appBar: AppBar(title: Text("Editor de Armas")),
+      body: ListView(
         padding: EdgeInsets.all(12),
         children: [
-          _btn(context, "Personajes"),
-          _btn(context, "Armas"),
-          _btn(context, "Mapas"),
-          _btn(context, "HUD"),
-          _btn(context, "Logros"),
-          _btn(context, "RAVY IA"),
+          _weapon("Pistola 9mm", "Daño: 40 | Cadencia: 60 | Precisión: 70"),
+          _weapon("Rifle M4", "Daño: 75 | Cadencia: 85 | Precisión: 80"),
+          _weapon("AK-47", "Daño: 90 | Cadencia: 70 | Precisión: 75"),
+          _weapon("Plasma Rifle X9", "Tecnología futurista | Daño: 120"),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
       ),
     );
   }
 
-  Widget _btn(BuildContext context, String title) {
+  Widget _weapon(String name, String stats) {
     return Card(
-      child: InkWell(
-        onTap: () {},
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(fontSize: 18),
-            textAlign: TextAlign.center,
-          ),
-        ),
+      child: ListTile(
+        leading: Icon(Icons.security),
+        title: Text(name),
+        subtitle: Text(stats),
+        trailing: Icon(Icons.settings),
       ),
     );
   }
