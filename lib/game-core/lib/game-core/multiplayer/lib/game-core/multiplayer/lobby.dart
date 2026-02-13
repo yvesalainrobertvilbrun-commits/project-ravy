@@ -1,36 +1,40 @@
-import 'player_net.dart';
+import 'package:flutter/material.dart';
 import 'room.dart';
+import 'player_net.dart';
 
-class Lobby {
-  List<Room> rooms = [];
+class LobbyScreen extends StatelessWidget {
+  final String lobbyName;
 
-  // Crear una nueva sala
-  Room createRoom(String roomId, {int maxPlayers = 20}) {
-    final room = Room(id: roomId, maxPlayers: maxPlayers);
-    rooms.add(room);
-    return room;
-  }
+  LobbyScreen({this.lobbyName = "Lobby Principal"});
 
-  // Buscar sala disponible
-  Room? findRoom() {
-    for (var room in rooms) {
-      if (!room.isFull()) return room;
-    }
-    return null;
-  }
-
-  // Unir jugador a sala
-  bool joinPlayer(PlayerNet player) {
-    final room = findRoom();
-    if (room != null) {
-      room.addPlayer(player.id);
-      return true;
-    }
-    return false;
-  }
-
-  // Listar salas
-  List<String> listRooms() {
-    return rooms.map((r) => r.id).toList();
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Lobby: $lobbyName")),
+      body: Padding(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Text(
+              "Jugadores conectados:",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Expanded(child: playerList()), // Lista de player_net.dart
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Navegar a la sala
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RoomScreen()),
+                );
+              },
+              child: Text("Entrar a la Sala"),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
