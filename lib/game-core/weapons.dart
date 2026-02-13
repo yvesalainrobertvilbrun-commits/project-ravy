@@ -1,24 +1,37 @@
-class Weapon {
-  final String name;
-  final String type; // normal o futurista
-  final int damage;
-  final int fireRate;
-  final int accuracy;
+import 'package:flutter/material.dart';
 
-  Weapon({
-    required this.name,
-    this.type = "normal",
-    required this.damage,
-    required this.fireRate,
-    required this.accuracy,
-  });
+class WeaponsScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Editor de Armas")),
+      body: ListView(
+        padding: EdgeInsets.all(12),
+        children: [
+          _weapon("Pistola 9mm", "Daño: 40 | Cadencia: 60 | Precisión: 70"),
+          _weapon("Rifle M4", "Daño: 75 | Cadencia: 85 | Precisión: 80"),
+          _weapon("AK-47", "Daño: 90 | Cadencia: 70 | Precisión: 75"),
+          _weapon("Plasma Rifle X9", "Tecnología futurista | Daño: 120"),
+          _weapon("Laser Blaster X1", "Tecnología futurista | Daño: 120 | Cadencia: 95"),
+          _weapon("Plasma Cannon Z9", "Tecnología futurista | Daño: 150 | Precisión: 80"),
+          _weapon("Nano Rifle V7", "Tecnología futurista | Daño: 130 | Cadencia: 85"),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
+    );
+  }
+
+  Widget _weapon(String name, String stats) {
+    return Card(
+      child: ListTile(
+        leading: Icon(Icons.security),
+        title: Text(name),
+        subtitle: Text(stats),
+        trailing: Icon(Icons.settings),
+      ),
+    );
+  }
 }
-
-// Lista de armas
-final List<Weapon> weapons = [
-  Weapon(name: "Pistola 9mm", damage: 40, fireRate: 60, accuracy: 70),
-  Weapon(name: "Rifle M4", damage: 75, fireRate: 85, accuracy: 80),
-  Weapon(name: "AK-47", damage: 90, fireRate: 70, accuracy: 75),
-  Weapon(name: "Plasma Rifle X9", type: "futurista", damage: 120, fireRate: 100, accuracy: 90),
-  Weapon(name: "Laser Cannon Z3", type: "futurista", damage: 150, fireRate: 80, accuracy: 95),
-];
