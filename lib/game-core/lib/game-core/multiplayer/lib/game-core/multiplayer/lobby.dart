@@ -20,11 +20,10 @@ class LobbyScreen extends StatelessWidget {
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Expanded(child: playerList()), // Lista de player_net.dart
+            Expanded(child: playerList()),
             SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                // Navegar a la sala
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => RoomScreen()),
