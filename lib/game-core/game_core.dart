@@ -1,27 +1,14 @@
-import '../auth/auth_service.dart';
+class BattleRoyale {
+  final List<String> players;
+  int safeZoneRadius;
 
-class GameCore {
-  int currentLevel = 1;
-  bool isBattleRoyale = false;
+  BattleRoyale({required this.players, this.safeZoneRadius = 1000});
 
-  void startGame({bool battleRoyale = false}) {
-    isBattleRoyale = battleRoyale;
-    print("Juego iniciado. Battle Royale: $isBattleRoyale");
+  void shrinkZone() {
+    if (safeZoneRadius > 100) safeZoneRadius -= 50;
   }
 
-  void completeLevel() {
-    print("Nivel $currentLevel completado");
-    AuthService.gainXP(50); // da XP al jugador
-    currentLevel++;
-  }
-
-  void resetGame() {
-    currentLevel = 1;
-    print("Juego reiniciado");
-  }
-
-  void toggleMode() {
-    isBattleRoyale = !isBattleRoyale;
-    print("Modo Battle Royale: $isBattleRoyale");
+  String playerStatus(String player) {
+    return "$player está en zona segura";
   }
 }
