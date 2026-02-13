@@ -1,33 +1,34 @@
+import 'package:flutter/material.dart';
+
 class PlayerNet {
-  String id;
-  String name;
-  double x;
-  double y;
-  int health;
-  int ammo;
+  final String name;
+  final int level;
+  final bool isReady;
 
-  PlayerNet({
-    required this.id,
-    required this.name,
-    this.x = 0.0,
-    this.y = 0.0,
-    this.health = 100,
-    this.ammo = 100,
-  });
+  PlayerNet({required this.name, this.level = 1, this.isReady = false});
+}
 
-  void move(double newX, double newY) {
-    x = newX;
-    y = newY;
-  }
+// Simulación de lista de jugadores conectados
+List<PlayerNet> connectedPlayers = [
+  PlayerNet(name: "Jugador1", level: 5, isReady: true),
+  PlayerNet(name: "Jugador2", level: 3, isReady: false),
+  PlayerNet(name: "Jugador3", level: 7, isReady: true),
+];
 
-  void takeDamage(int dmg) {
-    health -= dmg;
-    if (health < 0) health = 0;
-  }
-
-  void reload(int ammoCount) {
-    ammo = ammoCount;
-  }
-
-  bool isAlive() => health > 0;
+Widget playerList() {
+  return ListView.builder(
+    itemCount: connectedPlayers.length,
+    itemBuilder: (context, index) {
+      final player = connectedPlayers[index];
+      return Card(
+        child: ListTile(
+          leading: Icon(Icons.person),
+          title: Text(player.name),
+          subtitle: Text("Nivel: ${player.level}"),
+          trailing:
+              Icon(player.isReady ? Icons.check_circle : Icons.hourglass_empty),
+        ),
+      );
+    },
+  );
 }
