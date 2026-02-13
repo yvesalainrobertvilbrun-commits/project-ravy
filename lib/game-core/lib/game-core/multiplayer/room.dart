@@ -1,12 +1,27 @@
 class Room {
-  final String id;
+  String id;
+  int maxPlayers;
   List<String> players;
 
-  Room({required this.id, required this.players});
+  Room({
+    required this.id,
+    this.maxPlayers = 20,
+    List<String>? players,
+  }) : players = players ?? [];
 
-  bool get isFull => players.length >= 20;
+  bool addPlayer(String playerId) {
+    if (players.length < maxPlayers) {
+      players.add(playerId);
+      return true;
+    }
+    return false;
+  }
 
-  void addPlayer(String name) {
-    if (!isFull) players.add(name);
+  void removePlayer(String playerId) {
+    players.remove(playerId);
+  }
+
+  bool isFull() {
+    return players.length >= maxPlayers;
   }
 }
